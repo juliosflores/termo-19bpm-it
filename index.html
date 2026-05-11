@@ -152,130 +152,258 @@ textarea { resize: vertical; }
 
 <script>
 const TIPOS = [
+
+  // ── VIATURA ──────────────────────────────────────────────
   { id:'acidente_vtr', label:'🚔 Acidente com VTR', perguntas:[
-    'Os sinais luminosos e sonoros da viatura estavam ligados?',
-    'Em que velocidade deslocava no momento da colisão?',
-    'Em qual lado da via a viatura policial deslocava?',
-    'A avaria no veículo terceiro já existia ou foi decorrente do acidente?',
-    'O Sr. conversou com o condutor do veículo envolvido no local da ocorrência?',
-    'O condutor do outro veículo assumiu a responsabilidade pelas avarias causadas na viatura policial?',
-    'O Sr. Leandro/condutor se comprometeu a consertar as avarias da viatura?',
-    'No local algum dos condutores assumiu a culpa pelo sinistro?',
-    'Havia condições de evitar a colisão?',
-    'A pista estava molhada ou com condições adversas no momento do fato?',
-    'O Sr. comunicou imediatamente o fato ao superior hierárquico?',
-    'Se eventualmente restar apurada sua culpa no procedimento em análise, tem interesse em ressarcir o erário?',
+    // 1. Contexto — quem era e o que fazia
+    'Qual a função que exercia na viatura no momento do fato?',
+    'A viatura estava em atendimento de ocorrência ou em deslocamento de rotina?',
+    // 2. Condições operacionais
+    'Os sinais luminosos e sonoros da viatura estavam acionados no momento do fato?',
+    'Em qual faixa ou lado da via a viatura deslocava?',
+    'Qual a velocidade aproximada da viatura no momento da colisão?',
+    'As condições da pista eram favoráveis? Havia chuva, neblina, pista molhada ou outro fator adverso?',
+    // 3. Dinâmica do fato
+    'Como ocorreu a dinâmica do acidente?',
+    'Havia condições técnicas de evitar a colisão?',
+    // 4. Pós-fato — terceiro envolvido
+    'Chegou a conversar com o condutor do outro veículo no local da ocorrência?',
+    'O condutor do outro veículo assumiu alguma responsabilidade pelo sinistro?',
+    'O condutor do outro veículo se comprometeu a ressarcir as avarias da viatura policial?',
+    // 5. Providências tomadas
+    'Foi lavrado BOPM referente ao acidente?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 6. Ressarcimento — sempre por último
+    'Se eventualmente restar apurada sua culpabilidade no procedimento em análise, tem interesse em ressarcir o erário?',
   ]},
+
   { id:'acompanhamento', label:'🚨 Acompanhamento / Perseguição', perguntas:[
-    'Os sinais luminosos e sonoros da viatura estavam ligados? O giroflex e o pisca alerta?',
-    'O condutor do veículo perseguido realizou manobra brusca antes da colisão?',
-    'Onde exatamente visualizaram o veículo/motocicleta que motivou o acompanhamento?',
-    'No local do acidente havia semáforo?',
-    'O sinal estava aberto para as guarnições ou para os condutores civis?',
-    'Em qual lado da via a viatura policial deslocava?',
-    'O condutor do veículo abordado se negou a realizar o teste de etilômetro?',
-    'Em que velocidade deslocava no momento da colisão?',
-    'Havia condições de evitar a colisão?',
-    'A pista estava molhada ou com condições adversas no momento do fato?',
-    'Após a colisão, o condutor foi apresentado a alguma delegacia? Em virtude de quê?',
-    'Se eventualmente restar apurada sua culpa no procedimento em análise, tem interesse em ressarcir o erário?',
+    // 1. Contexto
+    'Qual a função que exercia na viatura no momento do fato?',
+    'Qual o motivo que originou o acompanhamento ao veículo?',
+    // 2. Condições operacionais
+    'Os sinais luminosos e sonoros da viatura estavam acionados? O giroflex e o pisca alerta estavam ligados?',
+    'Em qual faixa ou lado da via a viatura deslocava no momento do impacto?',
+    'Qual a velocidade aproximada da viatura no momento da colisão?',
+    'As condições da pista eram favoráveis? Havia chuva, pista molhada ou outro fator adverso?',
+    // 3. Dinâmica
+    'Havia semáforo no local do acidente? O sinal estava aberto para a guarnição ou para os condutores civis?',
+    'O condutor do veículo acompanhado realizou alguma manobra brusca ou imprevisível que impossibilitou evitar a colisão?',
+    'Havia condições técnicas de evitar a colisão?',
+    // 4. Pós-fato
+    'Após a abordagem, o condutor do veículo demonstrou sinais visíveis de embriaguez?',
+    'Foi oferecido o teste de etilômetro? O condutor se recusou a realizá-lo?',
+    'O condutor foi apresentado em alguma delegacia? Em virtude de quê?',
+    'Foi lavrado BOPM referente ao fato?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 5. Ressarcimento
+    'Se eventualmente restar apurada sua culpabilidade no procedimento em análise, tem interesse em ressarcir o erário?',
   ]},
-  { id:'viatura_estacionada', label:'🅿 VTR abalroada (estacionada)', perguntas:[
-    'Os sinais luminosos da viatura estavam acionados? O giroflex e o pisca alerta?',
-    'A viatura estava estacionada em qual faixa/local no momento da colisão?',
+
+  { id:'viatura_estacionada', label:'🅿 VTR abalroada (parada)', perguntas:[
+    // 1. Contexto
+    'Qual a função que exercia na viatura no momento do fato?',
+    'Por qual motivo a viatura estava parada no local?',
+    // 2. Condições operacionais
+    'Os sinais luminosos da viatura estavam acionados? O giroflex e o pisca alerta estavam ligados?',
+    'Em qual faixa ou local a viatura estava posicionada no momento da colisão?',
+    // 3. Dinâmica
+    'Como ocorreu a colisão?',
+    'O condutor do veículo que colidiu estava com a CNH?',
     'O condutor do veículo que colidiu demonstrou sinais visíveis de embriaguez?',
-    'Foi oferecido o teste de etilômetro? O condutor se negou a realizar?',
-    'O condutor do veículo que colidiu foi apresentado em alguma delegacia? Em virtude de quê?',
-    'O Sr. comunicou imediatamente o fato ao superior hierárquico?',
+    'Foi oferecido o teste de etilômetro? O condutor se recusou a realizá-lo?',
+    // 4. Pós-fato
+    'O condutor do outro veículo assumiu responsabilidade pelo sinistro?',
+    'O condutor do outro veículo se comprometeu a ressarcir as avarias da viatura policial?',
+    'O condutor foi apresentado em alguma delegacia? Em virtude de quê?',
+    'Foi lavrado BOPM referente ao fato?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
   ]},
-  { id:'avaria_vtr', label:'🔩 Avaria em VTR (galope)', perguntas:[
+
+  { id:'avaria_vtr', label:'🔩 Avaria em VTR (uso/galope)', perguntas:[
+    // 1. Contexto
+    'Qual a função que exercia na viatura no momento do fato?',
+    'Qual o prefixo da viatura e em qual turno estava escalado?',
+    // 2. Estado anterior — galope
     'Realizou o galope na viatura ao assumir o serviço?',
-    'Se no momento do galope verificou algum amassado ou arranhão na viatura?',
-    'As avarias registradas já existiam no momento em que assumiu o serviço?',
-    'Quando teve ciência das avarias descritas no procedimento?',
-    'Possui fotos ou registros que comprovem o estado da viatura no momento em que assumiu o serviço?',
-    'O Sr. tem interesse em ressarcir o erário se do resultado do procedimento restar apurada sua culpabilidade pelas avarias causadas na viatura policial?',
-    'O Sr. comunicou imediatamente o fato ao superior hierárquico?',
+    'No momento do galope, verificou alguma avaria, amassado ou arranhão na viatura?',
+    'As avarias descritas no presente procedimento já existiam quando assumiu o serviço?',
+    'Possui registros fotográficos ou outro meio de prova que comprove o estado da viatura ao assumir o serviço?',
+    // 3. Descoberta
+    'Em que momento e de que forma tomou ciência das avarias ora apuradas?',
+    // 4. Providências
+    'Comunicou as avarias ao motorista do turno anterior ou ao superior hierárquico?',
+    'Foi confeccionada alguma parte ou registro referente ao estado da viatura?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 5. Ressarcimento
+    'Se eventualmente restar apurada sua culpabilidade pelas avarias, tem interesse em ressarcir o erário?',
   ]},
-  { id:'disparo_afogo', label:'💥 Disparo de Arma de Fogo', perguntas:[
-    'Estava fazendo uso de qual armamento?',
-    'Quantos disparos efetuou?',
-    'Em qual direção ou alvo foram efetuados os disparos?',
-    'Recorda se em algum momento a viatura policial ficou em sua linha de tiro?',
-    'O declarante reconhece que o disparo ocorreu por uma falha pessoal no manuseio do armamento?',
-    'O Sr. comunicou imediatamente o fato aos seus superiores?',
-    'Uma vez apurada sua culpabilidade, o Sr. tem interesse em ressarcir o erário?',
+
+  // ── ARMAMENTO ────────────────────────────────────────────
+  { id:'disparo_servico', label:'💥 Disparo em Serviço', perguntas:[
+    // 1. Contexto
+    'Qual a função que exercia no momento do fato?',
+    'Qual o armamento que portava no momento do fato? Informe marca, modelo e calibre.',
+    // 2. Situação que motivou o disparo
+    'Descreva as circunstâncias que motivaram o emprego do armamento.',
+    'A situação configurava risco imediato à integridade física da guarnição ou de terceiros?',
+    // 3. Execução
+    'Quantos disparos foram efetuados?',
+    'Em qual direção ou alvo foram direcionados os disparos?',
+    'Em algum momento a viatura policial ou outro colega ficou na linha de tiro?',
+    // 4. Consequências
+    'Houve feridos em decorrência dos disparos?',
+    'O veículo ou indivíduo abordado foi atingido?',
+    // 5. Pós-fato
+    'O armamento foi recolhido para perícia após o fato?',
+    'Foi lavrado BOPM referente ao emprego do armamento?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 6. Ressarcimento
+    'Uma vez apurada sua culpabilidade pelo disparo, tem interesse em ressarcir o erário referente à munição empregada?',
   ]},
-  { id:'armamento_taser', label:'🔫 Disparo Acidental / Taser', perguntas:[
-    'A AINM/arma apresentava algum problema antes do fato?',
-    'O declarante reconhece que o disparo ocorreu por uma falha pessoal no manuseio do armamento?',
-    'Uma vez apurada sua culpabilidade, o Sr. tem interesse em ressarcir o erário?',
-    'O carregador/armamento apresentava alguma avaria anterior ao fato?',
-    'Após verificar as avarias, restituiu de imediato o material ao quarteleiro?',
-    'O material era cautelado e verificado regularmente?',
-    'O Sr. comunicou imediatamente o fato aos seus superiores?',
+
+  { id:'disparo_acidental', label:'🔫 Disparo Acidental', perguntas:[
+    // 1. Contexto
+    'Qual a função que exercia no momento do fato?',
+    'Qual o armamento envolvido no disparo acidental? Informe marca, modelo e calibre.',
+    // 2. Estado anterior do material
+    'O armamento apresentava algum defeito, folga ou mau funcionamento anterior ao fato?',
+    'O armamento era cautelado e verificado regularmente conforme norma?',
+    // 3. Circunstâncias
+    'Como estava acondicionado o armamento no momento em que ocorreu o disparo?',
+    'Descreva como ocorreu o disparo acidental.',
+    'Foi possível evitar o disparo?',
+    // 4. Reconhecimento
+    'Reconhece que o disparo decorreu de falha pessoal no manuseio do armamento?',
+    // 5. Consequências
+    'Houve feridos ou danos materiais em decorrência do disparo?',
+    'O cartucho disparado foi recolhido e apresentado ao encarregado?',
+    // 6. Providências
+    'O armamento foi recolhido e entregue ao quarteleiro após o fato?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 7. Ressarcimento
+    'Uma vez apurada sua culpabilidade, tem interesse em ressarcir o erário referente à munição e eventuais danos?',
   ]},
-  { id:'extravio_armamento', label:'🔴 Extravio de Armamento', perguntas:[
-    'Em que momento o Sr. deu falta da arma/material bélico?',
-    'Em que circunstâncias ocorreu o extravio?',
-    'O Sr. efetuou contato com a P2 imediatamente após constatar o extravio?',
-    'Se em decorrência do fato foi instaurado algum outro procedimento?',
-    'O Sr. possui interesse em ressarcir o erário pelo extravio do material bélico?',
-    'O Sr. comunicou imediatamente o fato ao superior hierárquico?',
-  ]},
-  { id:'equipamento_dano', label:'🔧 Avaria em Equipamento', perguntas:[
-    'Visualizou imediatamente as avarias nos materiais?',
-    'O equipamento apresentava falhas anteriores ao fato?',
-    'Quando entregou o material supostamente avariado no batalhão?',
-    'Onde estava acondicionado o material no momento em que foi avariado?',
-    'O material era cautelado regularmente?',
+
+  { id:'avaria_armamento', label:'🔧 Avaria em Armamento', perguntas:[
+    // 1. Contexto
+    'Qual a função que exercia no momento do fato?',
+    'Qual o armamento avariado? Informe marca, modelo, calibre e número de série.',
+    // 2. Estado anterior
+    'O armamento apresentava algum defeito ou problema anterior ao fato?',
+    'O armamento era cautelado e verificado regularmente?',
+    'Na última cautela, o armamento foi entregue em bom estado de conservação?',
+    // 3. Circunstâncias da avaria
+    'Como ocorreu a avaria?',
+    'Qual a avaria constatada?',
+    // 4. Descoberta e providências
+    'Constatou a avaria imediatamente após o fato ou em momento posterior?',
+    'O armamento foi entregue ao quarteleiro imediatamente após constatar a avaria?',
     'Foi confeccionada alguma parte referente ao dano?',
-    'O Sr. comunicou imediatamente o fato aos seus superiores?',
-    'Se eventualmente restar apurada sua culpa no procedimento em análise, tem interesse em ressarcir o erário?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 5. Ressarcimento
+    'Se eventualmente restar apurada sua culpabilidade pela avaria, tem interesse em ressarcir o erário?',
   ]},
-  { id:'celular_extravio', label:'📱 Dano / Extravio Celular', perguntas:[
-    'Onde estava acondicionado o aparelho celular no momento do fato?',
-    'Especifique onde estava acondicionado o celular no colete.',
-    'O Sr. visualizou o momento em que o celular caiu do compartimento?',
+
+  { id:'extravio_armamento', label:'🔴 Extravio de Armamento / Munição', perguntas:[
+    // 1. Contexto
+    'Qual a função que exercia no momento do fato?',
+    'Qual o material extraviado? Informe marca, modelo, calibre e número de série se armamento, ou tipo e quantidade se munição.',
+    // 2. Estado anterior e cautela
     'O material havia sido cautelado regularmente no início do serviço?',
-    'O aparelho apresentava avarias antes do fato?',
-    'Foram procedidas buscas próximas ao local do fato?',
-    'Ainda no local tentaram fazer contato com algum dos aparelhos?',
-    'Se foi confeccionada alguma parte referente ao dano?',
-    'O Sr. comunicou imediatamente o fato aos seus superiores?',
-    'Se eventualmente restar apurada sua culpa no procedimento em análise, tem interesse em ressarcir o erário?',
+    'Como estava acondicionado o material antes do extravio?',
+    // 3. Circunstâncias
+    'Descreva as circunstâncias em que ocorreu o extravio.',
+    'Em que momento constatou a falta do material?',
+    // 4. Providências imediatas
+    'Realizou buscas no local após constatar o extravio?',
+    'Efetuou contato com a P2 imediatamente após constatar o extravio?',
+    'Registrou a ocorrência de extravio em BOPM?',
+    // 5. Desdobramentos
+    'Em decorrência do fato foi instaurado algum outro procedimento além deste inquérito?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 6. Ressarcimento
+    'Tem interesse em ressarcir o erário pelo extravio do material bélico?',
   ]},
+
+  // ── EQUIPAMENTOS OPERACIONAIS ────────────────────────────
+  { id:'equipamento_dano', label:'🛡 Avaria em Equipamento', perguntas:[
+    // 1. Contexto
+    'Qual a função que exercia no momento do fato?',
+    'Qual o equipamento avariado? Descreva marca, modelo e número de patrimônio se houver.',
+    // 2. Estado anterior
+    'O equipamento apresentava algum defeito ou problema anterior ao fato?',
+    'O material era cautelado e verificado regularmente?',
+    'Na última cautela, o equipamento foi entregue em bom estado de conservação?',
+    // 3. Circunstâncias da avaria
+    'Como estava acondicionado o equipamento no momento em que foi avariado?',
+    'Como ocorreu a avaria?',
+    // 4. Descoberta
+    'Constatou a avaria imediatamente após o fato ou somente em momento posterior?',
+    // 5. Providências
+    'O equipamento avariado foi entregue ao responsável pelo material imediatamente após a constatação?',
+    'Foi confeccionada alguma parte referente ao dano?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 6. Ressarcimento
+    'Se eventualmente restar apurada sua culpabilidade pela avaria, tem interesse em ressarcir o erário?',
+  ]},
+
+  { id:'celular_dano', label:'📱 Dano / Extravio de Celular Funcional', perguntas:[
+    // 1. Contexto
+    'Qual a função que exercia no momento do fato?',
+    'O aparelho havia sido cautelado regularmente no início do serviço?',
+    // 2. Estado anterior
+    'O aparelho apresentava alguma avaria, tela trincada ou defeito anterior ao fato?',
+    // 3. Acondicionamento
+    'Como e onde estava acondicionado o aparelho no momento do fato?',
+    // 4. Circunstâncias
+    'Como ocorreu o dano ou extravio?',
+    'Visualizou o momento em que o aparelho caiu ou se perdeu?',
+    // 5. Providências
+    'Foram realizadas buscas no local após constatar o dano ou extravio?',
+    'Tentou fazer contato com o aparelho após o extravio?',
+    'O aparelho avariado ou o registro do extravio foi apresentado ao responsável pelo material?',
+    'Foi confeccionada alguma parte ou BOPM referente ao fato?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 6. Ressarcimento
+    'Se eventualmente restar apurada sua culpabilidade, tem interesse em ressarcir o erário?',
+  ]},
+
   { id:'extravio_equipamento', label:'🎒 Extravio de Equipamento', perguntas:[
-    'Em que circunstâncias ocorreu o extravio do material?',
-    'O material estava devidamente acondicionado no momento do fato?',
-    'O Sr. comunicou o extravio em BOPM e registrou ocorrência?',
-    'O Sr. comunicou imediatamente o fato ao superior hierárquico?',
-    'O Sr. tem interesse em ressarcir o erário caso seja considerado culpado?',
+    // 1. Contexto
+    'Qual a função que exercia no momento do fato?',
+    'Qual o material extraviado? Descreva marca, modelo e número de patrimônio se houver.',
+    // 2. Estado anterior e cautela
+    'O material havia sido cautelado regularmente no início do serviço?',
+    'Como estava acondicionado o material antes do extravio?',
+    // 3. Circunstâncias
+    'Descreva as circunstâncias em que ocorreu o extravio.',
+    'Em que momento constatou a falta do material?',
+    // 4. Providências
+    'Realizou buscas no local após constatar o extravio?',
+    'Registrou o extravio em BOPM?',
+    'Comunicou imediatamente o fato ao superior hierárquico?',
+    // 5. Ressarcimento
+    'Tem interesse em ressarcir o erário pelo extravio do material?',
   ]},
-  { id:'testemunha', label:'👤 Testemunha / Civil', perguntas:[
-    'A viatura policial da Brigada Militar estava com os sinais sonoros e luminosos acionados?',
-    'A Sra./Sr. concorda em ressarcir ou reparar as avarias causadas na viatura policial?',
-    'Realizou algum orçamento para conserto do seu veículo?',
-    'Já providenciou o conserto do veículo?',
-    'Pretende buscar o ressarcimento do Estado em caso de negativa de acordo com o militar estadual envolvido no acidente?',
-    'Trocou contato com algum dos militares envolvidos para fins de acertar as avarias?',
-    'Houve acordo extrajudicial com o militar envolvido?',
+
+  // ── TERCEIRO / TESTEMUNHA ────────────────────────────────
+  { id:'testemunha', label:'👤 Oitiva de Testemunha / Civil', perguntas:[
+    // 1. Contexto — como se relaciona ao fato
+    'De que forma tomou conhecimento do fato que motivou sua oitiva neste inquérito?',
+    'Presenciou diretamente o fato ou tomou conhecimento de outra forma?',
+    // 2. Condições da viatura — quando há colisão
+    'A viatura policial estava com os sinais sonoros e luminosos acionados no momento do fato?',
+    // 3. Danos e providências do civil
+    'Houve danos ao seu veículo ou pertences em decorrência do fato?',
+    'Realizou algum orçamento para conserto do veículo ou dos danos sofridos?',
+    'Já providenciou o conserto?',
+    // 4. Acordo e ressarcimento
+    'Chegou a algum acordo com os militares ou com a instituição para reparação dos danos?',
+    'Concorda em ressarcir as avarias causadas na viatura policial, caso seja apurada responsabilidade de sua parte?',
+    'Pretende buscar o ressarcimento junto ao Estado pelas avarias ou danos sofridos?',
   ]},
-  { id:'algema', label:'⛓ Avaria em Algema', perguntas:[
-    'A algema apresentava defeito ou dificuldade de funcionamento antes do fato?',
-    'Em que circunstâncias ocorreu a avaria no material?',
-    'A algema era cautelada regularmente?',
-    'O Sr. comunicou imediatamente o fato ao superior hierárquico?',
-    'O material foi entregue para análise/substituição após a constatação da avaria?',
-    'Se eventualmente restar apurada sua culpa no procedimento em análise, tem interesse em ressarcir o erário?',
-  ]},
-  { id:'outro', label:'📄 Outro / Geral', perguntas:[
-    'O Sr. comunicou imediatamente o fato ao seu superior hierárquico?',
-    'O material/equipamento apresentava alguma irregularidade anterior ao fato?',
-    'Se eventualmente restar apurada sua culpa no procedimento em análise, tem interesse em ressarcir o erário?',
-    'Há testemunhas que presenciaram o fato?',
-    'Deseja acrescentar algo mais ao seu depoimento?',
-  ]},
+
 ];
 
 let tipoAtivo = null;
