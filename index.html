@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gerador de Termo – 19º BPM</title>
-<script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: Arial, sans-serif; background: #e8e8ee; padding: 16px; color: #222; font-size: 13px; }
@@ -578,11 +578,24 @@ function gerarPreview() {
     </div>`;
 }
 
+async function carregarDocxSeNecessario() {
+  if (typeof docx !== 'undefined') return true;
+  return new Promise((resolve) => {
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/docx@8.5.0/build/index.js';
+    s.onload = () => resolve(typeof docx !== 'undefined');
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+
 async function baixarDocx() {
   const btn = document.getElementById('btn-docx');
   const status = document.getElementById('status-docx');
   btn.disabled = true; btn.textContent = '⏳ Gerando...'; status.textContent = '';
   try {
+    const ok = await carregarDocxSeNecessario();
+    if (!ok) throw new Error('Biblioteca não carregou. Verifique sua conexão com a internet e tente novamente.');
     const d = getDados();
     const { Document, Packer, Paragraph, TextRun, AlignmentType } = docx;
     function t(text, bold=false) { return new TextRun({ text, font:'Times New Roman', size:24, bold }); }
