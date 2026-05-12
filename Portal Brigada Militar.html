@@ -10,6 +10,7 @@
     :root {
       --c-hdr:      oklch(0.18 0.025 90);
       --c-nav:      oklch(0.23 0.030 89);
+      --c-nav-bdr:  oklch(0.30 0.035 87);
       --c-gold:     oklch(0.73 0.110 84);
       --c-gold-dim: oklch(0.55 0.075 83);
       --c-bg:       oklch(0.96 0.010 88);
@@ -28,7 +29,12 @@
       color: var(--c-text);
     }
 
-    .layout { display: flex; flex-direction: column; height: 100vh; }
+    /* ── LAYOUT ─────────────────────────────────────── */
+    .layout {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
 
     /* ── HEADER ─────────────────────────────────────── */
     .hdr {
@@ -64,7 +70,7 @@
     .hdr-text p {
       font-size: 11px;
       letter-spacing: 0.05em;
-      color: oklch(0.68 0.018 88);
+      color: oklch(0.72 0.018 88);
       margin-top: 3px;
     }
 
@@ -98,17 +104,19 @@
       font-weight: 600;
       letter-spacing: 0.07em;
       text-transform: uppercase;
-      color: oklch(0.58 0.018 88);
+      color: oklch(0.62 0.018 88);
       background: none;
       border: none;
       cursor: pointer;
-      transition: color 0.15s;
+      transition: color 0.18s;
       white-space: nowrap;
     }
 
     .nav-tab:hover { color: var(--c-white); }
 
-    .nav-tab.active { color: var(--c-gold); }
+    .nav-tab.active {
+      color: var(--c-gold);
+    }
 
     .nav-tab.active::after {
       content: '';
@@ -120,18 +128,23 @@
       background: var(--c-gold);
     }
 
-    /* ── VIEWS ───────────────────────────────────────── */
-    .content { flex: 1; position: relative; overflow: hidden; }
+    /* ── CONTENT ─────────────────────────────────────── */
+    .content {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
 
-    .view {
+    .tab-panel {
       display: none;
       position: absolute;
       inset: 0;
     }
-    .view.active { display: flex; }
 
-    /* ── HOME ────────────────────────────────────────── */
-    .home-view {
+    .tab-panel.active { display: flex; }
+
+    /* ── HOME PANEL ──────────────────────────────────── */
+    .home-panel {
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -205,7 +218,7 @@
     }
 
     /* ── CARDS ───────────────────────────────────────── */
-    .cards-row {
+    .home-cards {
       display: flex;
       gap: 16px;
       justify-content: center;
@@ -217,12 +230,12 @@
       background: var(--c-surface);
       border: 1px solid var(--c-border);
       border-radius: 6px;
-      padding: 24px 24px 20px;
-      width: 210px;
+      padding: 24px 28px 20px;
+      width: 200px;
       cursor: pointer;
       text-align: left;
+      transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
       font-family: inherit;
-      transition: box-shadow 0.16s, transform 0.16s, border-color 0.16s;
     }
 
     .card:hover {
@@ -246,6 +259,7 @@
       color: var(--c-hdr);
       margin-bottom: 6px;
       line-height: 1.3;
+      letter-spacing: 0.02em;
     }
 
     .card-desc {
@@ -258,7 +272,7 @@
       margin-top: 16px;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--c-gold-dim);
       display: flex;
@@ -266,109 +280,23 @@
       gap: 5px;
     }
 
-    .card-arrow svg { transition: transform 0.16s; }
+    .card-arrow svg {
+      transition: transform 0.18s;
+    }
+
     .card:hover .card-arrow svg { transform: translateX(4px); }
 
-    /* ── SUB-LANDING (Inquérito) ─────────────────────── */
-    .sublanding-view {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow-y: auto;
-      background: var(--c-bg);
-    }
+    /* ── IFRAME PANEL ────────────────────────────────── */
+    .iframe-panel { background: var(--c-bg); }
 
-    .sublanding-inner {
-      text-align: center;
-      padding: 40px 24px 56px;
-      max-width: 640px;
+    .iframe-panel iframe {
       width: 100%;
-    }
-
-    .sublanding-kicker {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--c-gold-dim);
-      margin-bottom: 8px;
-    }
-
-    .sublanding-title {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--c-hdr);
-      margin-bottom: 6px;
-    }
-
-    .sublanding-desc {
-      font-size: 13px;
-      color: var(--c-muted);
-      margin-bottom: 32px;
-    }
-
-    .card.disabled {
-      opacity: 0.45;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    /* ── MODULE VIEW ─────────────────────────────────── */
-    .module-view { flex-direction: column; background: var(--c-bg); }
-
-    .module-bar {
-      flex-shrink: 0;
-      background: oklch(0.21 0.026 89);
-      border-bottom: 1px solid oklch(0.28 0.025 89);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 20px;
-      height: 36px;
-    }
-
-    .module-back {
-      background: none;
+      height: 100%;
       border: none;
-      font-family: inherit;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--c-gold-dim);
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.14s;
-    }
-
-    .module-back:hover { color: var(--c-gold); }
-
-    .module-sep {
-      font-size: 11px;
-      color: oklch(0.38 0.015 88);
-    }
-
-    .module-title {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: oklch(0.62 0.018 88);
-    }
-
-    .module-frame {
-      flex: 1;
-      border: none;
-      width: 100%;
       display: block;
     }
 
-    /* ── FOOTER ──────────────────────────────────────── */
+    /* ── FOOTER BAR ──────────────────────────────────── */
     .footer {
       flex-shrink: 0;
       background: var(--c-nav);
@@ -382,7 +310,7 @@
     .footer-text {
       font-size: 10px;
       letter-spacing: 0.05em;
-      color: oklch(0.42 0.015 88);
+      color: oklch(0.45 0.015 88);
     }
 
     .footer-dot {
@@ -402,7 +330,7 @@
 
   <!-- HEADER -->
   <header class="hdr">
-    <img class="hdr-logo" src="uploads/pasted-1778609560060-0.png" alt="Brasão Brigada Militar RS">
+    <img class="hdr-logo" src="uploads/27190820_50881_GDO.jpeg" alt="Brasão Brigada Militar RS">
     <div class="hdr-text">
       <h1>Brigada Militar — Rio Grande do Sul</h1>
       <p>19º Batalhão de Polícia Militar &nbsp;·&nbsp; "Cel. Odilon Alves Chaves"</p>
@@ -412,29 +340,37 @@
 
   <!-- NAV -->
   <nav class="nav">
-    <button class="nav-tab active" data-view="inicio">Início</button>
-    <button class="nav-tab" data-view="inq-landing">Inquérito Técnico</button>
+    <button class="nav-tab active" data-tab="inicio">Início</button>
+    <button class="nav-tab" data-tab="inquerito">Inquérito Técnico</button>
   </nav>
 
   <!-- CONTENT -->
   <div class="content">
 
-    <!-- VIEW: INÍCIO -->
-    <div class="view home-view active" id="view-inicio">
+    <!-- TAB: INÍCIO -->
+    <div class="tab-panel home-panel active" id="tab-inicio">
       <div class="home-inner">
+
         <div class="home-logo-wrap">
-          <img src="uploads/pasted-1778609560060-0.png" alt="Brasão Brigada Militar RS">
+          <img src="uploads/27190820_50881_GDO.jpeg" alt="Brasão Brigada Militar RS">
         </div>
+
         <p class="home-kicker">Estado do Rio Grande do Sul · SSP</p>
         <h2 class="home-title">Brigada Militar</h2>
         <p class="home-subtitle">19º Batalhão de Polícia Militar</p>
+
         <hr class="home-rule">
-        <p class="home-desc">Sistema interno de gestão documental.<br>Selecione um módulo abaixo para começar.</p>
-        <div class="cards-row">
-          <button class="card" onclick="showView('inq-landing')">
+
+        <p class="home-desc">
+          Sistema interno de gestão documental.<br>
+          Selecione um módulo abaixo para começar.
+        </p>
+
+        <div class="home-cards">
+          <button class="card" onclick="showTab('inquerito')">
             <div class="card-tag">Módulo</div>
             <div class="card-label">Inquérito Técnico</div>
-            <div class="card-desc">Ferramentas de suporte a inquéritos do 19º BPM</div>
+            <div class="card-desc">Gerador de Termo de Declaração — 19º BPM</div>
             <div class="card-arrow">
               Acessar
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -443,52 +379,17 @@
             </div>
           </button>
         </div>
+
       </div>
     </div>
 
-    <!-- VIEW: INQUÉRITO TÉCNICO — SUB-LANDING -->
-    <div class="view sublanding-view" id="view-inq-landing">
-      <div class="sublanding-inner">
-        <p class="sublanding-kicker">Módulo · Inquérito Técnico</p>
-        <h2 class="sublanding-title">Selecione uma ferramenta</h2>
-        <p class="sublanding-desc">19º Batalhão de Polícia Militar — Porto Alegre, RS</p>
-        <div class="cards-row">
-
-          <button class="card" onclick="openModule('Inquerito Tecnico.html', 'Gerador de Termo de Declaração')">
-            <div class="card-tag">Disponível</div>
-            <div class="card-label">Gerador de Termo de Declaração</div>
-            <div class="card-desc">Geração automatizada de Termos de Declaração com download em .docx</div>
-            <div class="card-arrow">
-              Acessar
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </button>
-
-          <button class="card disabled">
-            <div class="card-tag">Em breve</div>
-            <div class="card-label">Em desenvolvimento</div>
-            <div class="card-desc">Novos módulos serão adicionados futuramente</div>
-          </button>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- VIEW: MÓDULO (iframe) -->
-    <div class="view module-view" id="view-module">
-      <div class="module-bar">
-        <button class="module-back" onclick="backToLanding()">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M10 6H2M6 10L2 6l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Inquérito Técnico
-        </button>
-        <span class="module-sep">/</span>
-        <span class="module-title" id="module-title"></span>
-      </div>
-      <iframe class="module-frame" id="module-frame" src="" title="Módulo"></iframe>
+    <!-- TAB: INQUÉRITO TÉCNICO -->
+    <div class="tab-panel iframe-panel" id="tab-inquerito">
+      <iframe
+        src="Inquerito Tecnico.html"
+        title="Inquérito Técnico — Gerador de Termo de Declaração"
+        id="inquerito-frame"
+      ></iframe>
     </div>
 
   </div>
@@ -505,31 +406,15 @@
 </div>
 
 <script>
-  const navTabs = document.querySelectorAll('.nav-tab');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const panels = document.querySelectorAll('.tab-panel');
 
-  function showView(name) {
-    document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + name));
-    const navKey = name.startsWith('inq') ? 'inq-landing' : name;
-    navTabs.forEach(t => t.classList.toggle('active', t.dataset.view === navKey));
+  function showTab(name) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    panels.forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
   }
 
-  function openModule(src, title) {
-    document.getElementById('module-frame').src = src;
-    document.getElementById('module-title').textContent = title;
-    showView('module');
-  }
-
-  function backToLanding() {
-    document.getElementById('module-frame').src = '';
-    showView('inq-landing');
-  }
-
-  navTabs.forEach(t => t.addEventListener('click', () => {
-    if (t.dataset.view === 'inq-landing') {
-      document.getElementById('module-frame').src = '';
-    }
-    showView(t.dataset.view);
-  }));
+  tabs.forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
 </script>
 
 </body>
