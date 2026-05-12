@@ -23144,10 +23144,50 @@ textarea { resize: vertical; }
 .prev-assin-func { font-size: 12px; }
 #status-docx { font-size: 11px; color: #1e6b1e; margin-top: 4px; text-align: center; min-height: 16px; }
 .nota { font-size: 10px; color: #888; margin-top: -4px; margin-bottom: 6px; font-style: italic; }
+
+.page-shell { max-width: 1460px; margin: 0 auto; }
+.main-tabs { background: #fff; border: 1px solid #cfcfe0; border-radius: 8px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.06); display: flex; min-height: 720px; }
+.tab-buttons { width: 250px; background: #12124b; display: flex; flex-direction: column; padding-top: 10px; }
+.tab-btn { border: none; background: transparent; color: #d6d7f3; padding: 14px 12px; cursor: pointer; font-weight: bold; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; text-align: left; border-left: 4px solid transparent; }
+.tab-btn.active { background: #fff; color: #12124b; border-left-color: #12124b; }
+.tab-content { flex: 1; background: #f7f7fb; }
+.tab-panel { display: none; padding: 16px; height: 100%; }
+.tab-panel.active { display: block; }
+.central-panel { min-height: 540px; display: flex; align-items: center; justify-content: center; }
+.tool-card { width: min(760px, 100%); text-align: center; background: #f8f8fd; border: 1px solid #dcdef6; border-radius: 10px; padding: 34px 20px; }
+.bm-logo { width: 230px; max-width: 72%; display:block; margin: 0 auto 18px; }
+.tool-title { font-size: 22px; color: #12124b; margin-bottom: 8px; }
+.tool-desc { color: #4b4b66; margin-bottom: 18px; }
+.btn-open-tool { background: #1a1a5e; color:#fff; border:none; border-radius: 4px; padding: 11px 20px; font-weight: bold; cursor: pointer; }
+.btn-open-tool:hover { background: #2d2d8e; }
+@media (max-width: 980px) {
+  .main-tabs { flex-direction: column; min-height: 0; }
+  .tab-buttons { width: 100%; flex-direction: row; padding-top: 0; }
+  .tab-btn { text-align: center; border-left: none; border-bottom: 3px solid transparent; }
+  .tab-btn.active { border-bottom-color: #12124b; }
+}
+
 </style>
 </head>
 <body>
-<h1>⚖ GERADOR DE TERMO DE DECLARAÇÃO — 19º BPM</h1>
+<div class="page-shell">
+<h1>⚖ CENTRAL DE FERRAMENTAS — 19º BPM</h1>
+<div class="main-tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-tab="tab-central">🏠 Página Inicial</button>
+    <button class="tab-btn" data-tab="tab-termo">📝 Gerador de Termo</button>
+  </div>
+  <div class="tab-content">
+  <section id="tab-central" class="tab-panel central-panel active">
+    <div class="tool-card">
+      <img class="bm-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Brasao_Brigada_Militar_RS.png" alt="Logo da Brigada Militar do Rio Grande do Sul">
+      <h2 class="tool-title">Ferramentas da Brigada Militar</h2>
+      <p class="tool-desc">Use esta página central para acessar os módulos. O gerador abaixo funciona como uma aba da ferramenta.</p>
+      <button class="btn-open-tool" onclick="abrirAba('tab-termo')">Abrir Gerador de Termo</button>
+    </div>
+  </section>
+
+  <section id="tab-termo" class="tab-panel">
 <div class="container">
   <div class="painel">
     <h2>1. Tipo de Ocorrência</h2>
@@ -23229,6 +23269,10 @@ textarea { resize: vertical; }
       <p style="color:#bbb;font-style:italic;margin-top:40px;text-align:center">Preencha os dados e clique em "Gerar prévia"</p>
     </div>
   </div>
+</div>
+  </section>
+</div>
+</div>
 </div>
 
 <script>
@@ -23506,7 +23550,6 @@ function renderTipos() {
 function selecionarTipo(id) {
   const mudou = tipoAtivo !== id;
   tipoAtivo = id;
-  renderTipos();
   if (mudou && perguntas.length === 0) {
     const tipo = TIPOS.find(t => t.id === id);
     if (tipo) perguntas = [...tipo.perguntas];
@@ -23822,6 +23865,19 @@ Declarante`;
     alert('✅ Texto copiado! Cole no Word com Ctrl+V.');
   });
 }
+
+function abrirAba(tabId) {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabId);
+  });
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.classList.toggle('active', panel.id === tabId);
+  });
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => abrirAba(btn.dataset.tab));
+});
 
 renderTipos();
 renderPerguntas();
